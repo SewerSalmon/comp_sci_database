@@ -31,19 +31,15 @@ public class Grid {
 
                 if(x-MG.FileManagement.getCollums()>=0){
                     currentPos.setUp(gridSquares[x-MG.FileManagement.getCollums()]);
-                    System.out.println("up set to " + gridSquares[x-MG.FileManagement.getCollums()].Name());
                 }
                 if(x+MG.FileManagement.getCollums()<=gridSquares.length-1){
                     currentPos.setDown(gridSquares[x+MG.FileManagement.getCollums()]);
-                    System.out.println("down set to " + gridSquares[x+MG.FileManagement.getCollums()].Name());
                 }
                 if(x-1>=row*MG.FileManagement.getCollums()){
                     currentPos.setLeft(gridSquares[x-1]);
-                    System.out.println("left set to " + gridSquares[x-1].Name());
                 }
                 if(x+1<=((row+1)*MG.FileManagement.getCollums())-1){
                     currentPos.setRight(gridSquares[x+1]);
-                    System.out.println("right set to " + gridSquares[x+1].Name());
                 }
 
             }
@@ -80,7 +76,43 @@ public class Grid {
             }
         }
         oldpos.clear();
+        Display(oldpos);
     }
 
+    public void Display(GridSquare oldpos){
+        Database found = new Database("Found.txt");
+        String areas[] = new String[found.getRecordCount()];
+        int areasStatus[] = new int[found.getRecordCount()];
+        for(int x = 0; x<found.getRecordCount();x++) {
+            String temp[] = found.getRecord(x+1).split("\\s+");
+            areas[x] = temp[0];
+            areasStatus[x] = Integer.parseInt(temp[1]);
+            if(currentPos.Name().compareTo(areas[x]) == 0){
+                if (areasStatus[x] == 0){
+                    // dont display
+                    System.out.println("moved from "+ oldpos.Name() + " to ?");
+                }else{
+                    //display
+                    System.out.println("moved from "+ oldpos.Name() + " to " + currentPos.Name());}
+            }
+        }
+    }
+
+
+
+    public void createGid(){
+        Grid grid = new Grid();
+
+        Database MG = new Database("MapGrid.txt");
+        GridSquare gridSquares[] = new GridSquare[MG.FileManagement.getCollums()*MG.getRecordCount()];
+        int counter=0;
+        for(int x = 0; x<MG.getRecordCount();x++) {
+            for(int y = 0;y<MG.FileManagement.getCollums();y++) {
+                gridSquares[counter] = new GridSquare(MG.getRecord(x+1).split("\\s+")[y]);
+                counter++;
+            }
+        }
+                SetCurrent(gridSquares[0]);
+    }
 
 }

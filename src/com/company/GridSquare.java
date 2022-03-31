@@ -38,9 +38,8 @@ public class GridSquare {// mayeb chage to an aray list idk help
     public GridSquare getRight(){
         return right;
     }
+    public void clear(){up = null; down = null; left = null; right = null;}
     public String Name(){
         return name;
     }
-
-
 }

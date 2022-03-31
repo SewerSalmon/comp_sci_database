@@ -1,6 +1,8 @@
 
 package com.company;
 
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class Database {
@@ -62,7 +64,28 @@ public class Database {
             return false;
         }else {
             return true;}
-
     }
+
+
+    public String[] readFromTo(int startat, int endat) {
+        try (RandomAccessFile rf = new RandomAccessFile(filename, "rws")) {
+            for (int x = startat; x < endat; x++) {
+                rf.seek(x);
+                char letter = (char) rf.read();
+                String read[] = new String[endat];
+                read[x] = read[x] + letter;
+                return read;
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+
+
 
 }

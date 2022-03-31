@@ -93,7 +93,6 @@ public class FileHandling {
 
     public int getCollums(){
         return collums;
-
     }
 
     public void setCollums(ArrayList<String> splited){

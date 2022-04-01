@@ -28,7 +28,6 @@ public class Grid {
         for(int x = 0;x<gridSquares.length;x++){
             if(currentPos.Name().compareTo(gridSquares[x].Name())==0){
                 int row = x/MG.FileManagement.getCollums();
-
                 if(x-MG.FileManagement.getCollums()>=0){
                     currentPos.setUp(gridSquares[x-MG.FileManagement.getCollums()]);
                 }
@@ -83,6 +82,7 @@ public class Grid {
         Database found = new Database("Found.txt");
         String areas[] = new String[found.getRecordCount()];
         int areasStatus[] = new int[found.getRecordCount()];
+
         for(int x = 0; x<found.getRecordCount();x++) {
             String temp[] = found.getRecord(x+1).split("\\s+");
             areas[x] = temp[0];

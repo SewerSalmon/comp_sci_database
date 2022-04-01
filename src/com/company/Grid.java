@@ -48,6 +48,7 @@ public class Grid {
     }
 
     public void move(){
+        Display();
         CreateSurroundings();
         Scanner Ui = new Scanner(System.in);  // Create a Scanner object
         System.out.println("u/d/l/r");
@@ -75,26 +76,29 @@ public class Grid {
             }
         }
         oldpos.clear();
-        Display(oldpos);
     }
 
-    public void Display(GridSquare oldpos){
+    public void Display(){
         Database found = new Database("Found.txt");
         String areas[] = new String[found.getRecordCount()];
         int areasStatus[] = new int[found.getRecordCount()];
+        String newpos;
 
         for(int x = 0; x<found.getRecordCount();x++) {
             String temp[] = found.getRecord(x+1).split("\\s+");
             areas[x] = temp[0];
             areasStatus[x] = Integer.parseInt(temp[1]);
+
             if(currentPos.Name().compareTo(areas[x]) == 0){
                 if (areasStatus[x] == 0){
-                    // dont display
-                    System.out.println("moved from "+ oldpos.Name() + " to ?");
+                    newpos = "?";
                 }else{
-                    //display
-                    System.out.println("moved from "+ oldpos.Name() + " to " + currentPos.Name());}
+                   newpos = currentPos.Name();
+                }
+                System.out.println("currently at " + newpos);
+                return;
             }
+
         }
     }
 
